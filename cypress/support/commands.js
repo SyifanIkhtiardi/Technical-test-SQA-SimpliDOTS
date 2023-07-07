@@ -1,3 +1,4 @@
+// Login custom commands
 Cypress.Commands.add(("tmdbLogin"), (username, password) => {
     cy.visit("https://www.themoviedb.org");
     cy.contains("Login").click();
@@ -14,7 +15,7 @@ Cypress.Commands.add(("tmdbLogin"), (username, password) => {
     cy.get("#login_button").click();
 });
 
-// Set cookies command
+// Set cookies commands
 Cypress.Commands.add(("setLoginSession"), () => {
   cy.fixture("cookies.json").then((cookies) => {
     cookies.forEach((cookie) => {
@@ -28,4 +29,15 @@ Cypress.Commands.add(("setLoginSession"), () => {
       });
     });
   });
+});
+
+// Visit movie/tvshow list custom commands
+Cypress.Commands.add(("navigateToMovieOrTVList"), (type, category) => {
+  cy.contains("a", `${type}`).click();
+  cy.contains("a", `${category}`).click();
+});
+
+// Navigate to movies detail custom sommands
+Cypress.Commands.add("visitMovieDetail", (movieName) => {
+  cy.contains(".card", `${movieName}`).click();
 })
