@@ -20,14 +20,13 @@ describe("Favorite movie on The Movie Database", () => {
     });
 
     it("should add a movie to user's favorite movies list", () => {
-      cy.visit("https://www.themoviedb.org/u/Gompachiro");
+      cy.visit("https://www.themoviedb.org");
 
       // Navigate to movies list 
       // Input first parameter with Movies
       // Input second parameter with Popular, Now Playing, Top Rated, or Upcoming 
       cy.navigateToMovieOrTVList("Movies", "Popular");
       // Verify url
-
       cy.url().should("eq", "https://www.themoviedb.org/movie");
 
       // Visit movie detail page
@@ -37,8 +36,7 @@ describe("Favorite movie on The Movie Database", () => {
       // Marks movie as favorite
       cy.get("#favourite").click();
 
-      cy.get("#favourite > span")
-        .should("have.class", "true");
+      cy.get("#favourite > span").should("have.class", "true");
       
     });
 
@@ -48,7 +46,7 @@ describe("Favorite movie on The Movie Database", () => {
       // Verify movie name existed
       cy.contains("Fast X").should("exist");
 
-      // Verify if card contain image and movie detail
+      // Verify if movie contain image and movie detail
       cy.get(".card")
         .find(".image")
         .should("exist");
@@ -60,9 +58,70 @@ describe("Favorite movie on The Movie Database", () => {
     it("should be able to remove movie from favorite list", () => {
       cy.visit("https://www.themoviedb.org/u/Gompachiro/favorites");
       cy.contains("Remove").click();
-      cy.contains("Fast X")
-        .should("not.exist");
+      cy.contains("Fast X").should("not.exist");
     });
   });
 
+  context("When marks multiple movies as favorite", () => {
+    const movies = ["Fast X", "Spider-Man: Across the Spider-Verse", "The Super Mario Bros. Movie"];
+
+    beforeEach(() => {
+      // Set cookie for each test using custom command
+      cy.setLoginSession();
+    });
+
+    it("should add multiple to user's favorite movies list", () => {
+      cy.visit("https://www.themoviedb.org");
+
+      // Navigate to movies list 
+      // Input first parameter with Movies
+      // Input second parameter with Popular, Now Playing, Top Rated, or Upcoming 
+      cy.navigateToMovieOrTVList("Movies", "Popular");
+
+      // Verify url
+      cy.url().should("eq", "https://www.themoviedb.org/movie");
+
+      movies.forEach((movie) => {
+
+        // Visit movie detail page
+        cy.visitMovieDetail(movie);
+       
+        // Marks movie as favorite
+        cy.get("#favourite").click();
+
+        cy.get("#favourite > span").should("have.class", "true");  
+        
+        // Back to movie list page
+        cy.go(-1);
+      });
+    });
+
+    it("should be added to the user's favorite movie list", () => {
+      cy.visit("https://www.themoviedb.org/u/Gompachiro/favorites");
+
+      // Verify if list have 3 movies in it
+      cy.get(".results_page")
+        .children()
+        .should("have.length", 3);
+      
+      // Verify if movie name existed in the list
+      movies.forEach((movie) => {
+        cy.contains(movie).should("exist");
+      });
+    });
+
+    it("should be able remove movies from favorite", () => {
+      cy.visit("https://www.themoviedb.org/u/Gompachiro/favorites");
+      cy.get(".results_page")
+        .find(".remove_list_item")
+        .each(($el) => {
+          cy.wrap($el).click();
+        });
+
+      movies.forEach((movie) => {
+        cy.contains(movie).should("not.exist");
+      });
+    });
+  });
+  
 })
