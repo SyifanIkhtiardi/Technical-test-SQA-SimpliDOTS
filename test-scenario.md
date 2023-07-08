@@ -36,7 +36,7 @@ As a user, i want to be able to mark movies or tv shows as favorite,so that I ca
 		And the user on the profile page favorite tv show section
 		When the user removes the movie from their favorite movies
 		Then the movie should be removed from the user's favorite movie list
-		And the movie should no longer displayed on user's favorite movie list
+		And the counter should display correct value after a movie being removed
 
 	Scenario: User can remove a TV show from favorite TV shows
 		Given the user is logged in
@@ -44,7 +44,7 @@ As a user, i want to be able to mark movies or tv shows as favorite,so that I ca
 		And the user on the profile page favorite TV shows section
 		When the user removes the TV show from their favorite TV shows
 		Then the TV show should be removed from the user's favorite TV show list
-		And the TV show should no longer displayed on user's favorite TV show list
+		And the counter should display correct value after a TV show being removed
 
 	Scenario: User can order favorite movies list
 		Given the user is logged in

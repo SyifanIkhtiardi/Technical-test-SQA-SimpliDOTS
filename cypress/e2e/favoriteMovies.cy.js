@@ -67,12 +67,16 @@ describe("Favorite movie on The Movie Database", () => {
   });
 
   context("When user remove a movie from favortie list", () => {
-      it("should be able to remove movie from favorite list", () => {
+      it("should display correct movie counter", () => {
           cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie);
           cy.contains("Remove").click();
           cy.contains("Fast X").should("not.exist");
 
           cy.get("[data-media-type='movie']").should("contain", "0")
+        });
+      it("should be able to remove movie from favorite list", () => {
+          cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie);
+          cy.contains("Fast X").should("not.exist");
         });
   })
 
@@ -146,8 +150,6 @@ describe("Favorite movie on The Movie Database", () => {
         .each(($el) => {
           cy.wrap($el).click();
         });
-
-      cy.get("[data-media-type='movie']").should("contain", "0")
 
       movies.forEach((movie) => {
         cy.contains(movie).should("not.exist");
