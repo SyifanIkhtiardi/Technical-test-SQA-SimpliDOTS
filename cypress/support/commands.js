@@ -33,8 +33,12 @@ Cypress.Commands.add(("setLoginSession"), () => {
 
 // Visit movie/tvshow list custom commands
 Cypress.Commands.add(("navigateToMovieOrTVList"), (type, category) => {
-  cy.contains("a", `${type}`).click();
-  cy.contains("a", `${category}`).click();
+  cy.get(".dropdown_menu.navigation")
+  .contains(`${type}`) // Find the element containing the text "TV Shows"
+  .click() // Click on the "TV Shows" element
+  .next() // Traverse to the next sibling element, which is the dropdown menu
+  .contains(`${category}`) // Find the element containing the text "Popular"
+  .click(); // Click on the "Popular" element
 });
 
 // Navigate to movies detail custom sommands

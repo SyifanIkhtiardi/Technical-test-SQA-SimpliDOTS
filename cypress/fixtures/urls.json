@@ -1,6 +1,7 @@
 {
   "baseUrl": "https://www.themoviedb.org",
   "movie": "/movie",
+  "tv": "/tv",
   "favoritesMovie": "/u/Gompachiro/favorites/movie",
   "favoritesTV": "/u/Gompachiro/favorites/tv",
   "orderByParam": "?sort_by=release_date",
