@@ -40,4 +40,9 @@ Cypress.Commands.add(("navigateToMovieOrTVList"), (type, category) => {
 // Navigate to movies detail custom sommands
 Cypress.Commands.add("visitMovieDetail", (movieName) => {
   cy.contains(".card", `${movieName}`).click();
-})
+});
+
+// Command to hover over the trigger element
+Cypress.Commands.add("hoverOverElement", { prevSubject: "element" }, (subject) => {
+  cy.wrap(subject).trigger("mouseover");
+});
