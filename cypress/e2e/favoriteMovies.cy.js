@@ -4,6 +4,7 @@ describe("Favorite movie on The Movie Database", () => {
   const password = Cypress.env("password");
 
   before(() => {
+    
     // Perform login
     cy.tmdbLogin(username, password)
 
@@ -14,6 +15,9 @@ describe("Favorite movie on The Movie Database", () => {
     cy.writeFile("cypress/fixtures/cookies.json", JSON.stringify(cookies));
     });
 
+    // Verify language should in english
+    cy.get("header > div.content > div > div.flex > ul > li.translate > div").should("contain", "en")
+    
     // Load url fixtures
     cy.fixture("urls").then((urlsFixture) => {
       Cypress.urlsFixture = urlsFixture;
@@ -27,7 +31,7 @@ describe("Favorite movie on The Movie Database", () => {
     });
 
   context("When marks a movie as favorite", () => {
-    it("should add a movie to user's favorite movies list", () => {
+    it("should sucessfully add a movie to user's favorite movies list", () => {
       cy.visit(Cypress.urlsFixture.baseUrl);
 
       // Navigate to movies list 

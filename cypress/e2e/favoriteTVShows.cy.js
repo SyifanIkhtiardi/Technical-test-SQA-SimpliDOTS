@@ -16,6 +16,9 @@ describe("Favorite TV shows on The Movie Database", () => {
       cy.writeFile("cypress/fixtures/cookies.json", JSON.stringify(cookies));
       });
   
+      // Verify language should in english
+      cy.get("header > div.content > div > div.flex > ul > li.translate > div").should("contain", "en");
+      
       // Load url fixtures
       cy.fixture("urls").then((urlsFixture) => {
         Cypress.urlsFixture = urlsFixture;
