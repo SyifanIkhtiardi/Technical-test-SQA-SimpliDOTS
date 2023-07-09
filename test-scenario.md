@@ -56,11 +56,23 @@ As a user, i want to be able to mark movies or tv shows as favorite,so that I ca
 	Scenario: User can order favorite TV shows list
 		Given the user is logged in
 		And the user has multiple TV shows in their favorite TV shows list
-		And the user is on the profile page facorite TV shows section
+		And the user is on the profile page favorite TV shows section
 		When the user orders their TV shows list by a specific criteria
 		Then the favorite TV shows should be displayed in the specified order on the profile page
 		 
-		 
+	Scenario: User can import favorite movie and TV show from CSV
+		Given the user is logged in
+		And the user has CSV file that contain list of favorite movie and Tv show
+		When user imports the CSV file
+		Then the favorite list should be successfully imported
+		And the imported movies should be added to the user's favorite movie list
+
+	Scenario: User can export a favorite list to csv
+		Given the user is logged in
+		And the user has movie or tv show in their favorite list
+		When user exports the list
+		Then a CSV file should be created with the favorite movie list data
+    	And the CSV file should contain all the movies from the favorite movie list
 		
 ``` 
 
