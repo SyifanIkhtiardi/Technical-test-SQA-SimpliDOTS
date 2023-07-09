@@ -1,10 +1,16 @@
-# Cypress Automation: Mark Favorite Movies/TV Shows
+# Cypress Automation: Marks Movies or TV Shows as Favorite
 
 This repository contains automated tests using Cypress for marks movies or TV shows as favorite on a The Movie Database (TMDb) website.
 
 <B>» Links:</B>
 
 - [Test Scenario](<test-scenario.md> "Test Scenario") 
+
+<B>» Automation test record:</B>
+
+![Marks movie as favorite](cypress/videos/favoriteMovies.cy.js.mp4)
+![Marks tv show as favorite](cypress/videos/favoriteTVShows.cy.js.mp4)
+![Import and export favorite list](cypress/videos/importExportFavMovie.cy.js.mp4)
 
 <B>» Pre-requisites for this project include:</B>
 
