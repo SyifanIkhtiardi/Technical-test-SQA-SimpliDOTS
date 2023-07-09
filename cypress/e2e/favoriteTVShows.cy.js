@@ -64,6 +64,7 @@ describe("Favorite TV shows on The Movie Database", () => {
           .find(".details")
           .should("exist");
   
+        // Verify if display correct counter
         cy.get("[data-media-type='tv']").should("contain", "1")
       });
     });
@@ -73,6 +74,7 @@ describe("Favorite TV shows on The Movie Database", () => {
             cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesTV);
             cy.contains("Remove").click();
   
+            // Verify if display correct counter
             cy.get("[data-media-type='tv']").should("contain", "0")
           });
         it("should be able to remove TV show from favorite list", () => {

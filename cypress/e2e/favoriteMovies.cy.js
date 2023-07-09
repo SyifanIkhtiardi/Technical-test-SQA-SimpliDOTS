@@ -72,6 +72,7 @@ describe("Favorite movie on The Movie Database", () => {
           cy.contains("Remove").click();
           cy.contains("Fast X").should("not.exist");
 
+          // Verify if display correct counter
           cy.get("[data-media-type='movie']").should("contain", "0")
         });
       it("should be able to remove movie from favorite list", () => {
@@ -122,6 +123,7 @@ describe("Favorite movie on The Movie Database", () => {
         cy.contains(movie).should("exist");
       });
 
+      // Verify if display correct counter
       cy.get("[data-media-type='movie']").should("contain", "3")
     });
 
