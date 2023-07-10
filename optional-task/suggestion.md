@@ -1,0 +1,3 @@
+## Saran / Feedback
+ - Menambahkan tombol watchlist di navigation bar agar user tidak perlu menuju ke user profile terlebih dahulu
+- Counter untuk menampilkan jumlah movie yang ada di favorite list ketika melakukan aksi remove tidak secara otomatis terupdate menyesuaikan jumlah movie yang ada. Perlu untuk reload halaman terlebih dahulu, sebaiknya counter dapat menyesuaikkan jumlah film yang ada di list secara otomatis. 

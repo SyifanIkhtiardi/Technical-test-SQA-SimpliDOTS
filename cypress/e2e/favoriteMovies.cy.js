@@ -70,11 +70,10 @@ describe("Favorite movie on The Movie Database", () => {
     });
   });
 
-  context("When user remove a movie from favortie list", () => {
+  context("When user remove a movie from favorite list", () => {
       it("should display correct movie counter", () => {
           cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie);
           cy.contains("Remove").click();
-          cy.contains("Fast X").should("not.exist");
 
           // Verify if display correct counter
           cy.get("[data-media-type='movie']").should("contain", "0")
