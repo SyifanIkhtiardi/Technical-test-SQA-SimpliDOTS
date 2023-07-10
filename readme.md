@@ -5,6 +5,8 @@ This repository contains automated tests using Cypress for marks movies or TV sh
 <B>» Links:</B>
 
 - [Test Scenario](<test-scenario.md> "Test Scenario") 
+- [Automation Result Validation](<optional-task/automationResultValidation.md> "Automation Result Validation") 
+- [Suggestion](optional-task/suggestion.md> "Suggestion") 
 
 <B>» Automation test record:</B>
 
