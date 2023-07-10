@@ -29,5 +29,5 @@ This repository contains automated tests using Cypress for marks movies or TV sh
 1. Download or clone this repo
 2. Install dependencies by running the following command in terminal (from inside your app directory i.e. where package.json is located): <I><B>npm install </I></B>
 3. Open "cypress.env.json" and provide the username and password required for the test
-4. Plase make sure thera no movie or th show at your favorite list in your account 
+4. Plase make sure there are no movie or tv show at your favorite list in your account 
 5. Run test
