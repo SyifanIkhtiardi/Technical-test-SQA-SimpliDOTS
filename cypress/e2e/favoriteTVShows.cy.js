@@ -38,13 +38,13 @@ describe("Favorite TV shows on The Movie Database", () => {
         // Navigate to movies list 
         // Input first parameter with TV Shows
         // Input second parameter with Popular, Airing Today, Top Rated, or On TV 
-        cy.navigateToMovieOrTVList("TV Shows", "Popular");
+        cy.navigateToMovieOrTVList("TV Shows", "Top Rated");
         // Verify url
         cy.url().should("eq", Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.tv);
   
         // Visit movie detail page
-        cy.visitMovieDetail("Jujutsu Kaisen");
-        cy.url().should("contain", "95479");
+        cy.visitMovieDetail("One Piece");
+        cy.url().should("contain", "37854");
   
         // Marks movie as favorite
         cy.get("#favourite").click();
@@ -57,7 +57,7 @@ describe("Favorite TV shows on The Movie Database", () => {
         cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesTV)
   
         // Verify movie name existed
-        cy.contains("Jujutsu Kaisen").should("exist");
+        cy.contains("One Piece").should("exist");
   
         // Verify if movie contain image and movie detail
         cy.get(".card")
@@ -82,12 +82,12 @@ describe("Favorite TV shows on The Movie Database", () => {
           });
         it("should be able to remove TV show from favorite list", () => {
             cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesTV);
-            cy.contains("Jujutsu Kaisen").should("not.exist");
+            cy.contains("One Piece").should("not.exist");
           });
     })
   
     context("When marks multiple TV shows as favorite", () => {
-      const tvShows = ["Jujutsu Kaisen", "Peaky Blinders", "Lucifer"];
+      const tvShows = ["One Piece", "Demon Slayer: Kimetsu no Yaiba", "Fullmetal Alchemist: Brotherhood"];
   
       it("should add multiple to user's favorite movies list", () => {
         cy.visit(Cypress.urlsFixture.baseUrl);
@@ -95,7 +95,7 @@ describe("Favorite TV shows on The Movie Database", () => {
         // Navigate to movies list 
         // Input first parameter with Movies
         // Input second parameter with Popular, Now Playing, Top Rated, or Upcoming 
-        cy.navigateToMovieOrTVList("TV Shows", "Popular");
+        cy.navigateToMovieOrTVList("TV Shows", "Top Rated");
   
         // Verify url
         cy.url().should("eq", Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.tv);
@@ -143,7 +143,7 @@ describe("Favorite TV shows on The Movie Database", () => {
           );
   
           // Verify if the movies are displayed in expected order
-          const orderByReleaseDesc = ["Jujutsu KaisenLuciferPeaky Blinders"];
+          const orderByReleaseDesc = ["Demon Slayer: Kimetsu no YaibaFullmetal Alchemist: BrotherhoodOne Piece"];
           expect(showTitles).to.deep.equal(orderByReleaseDesc);
         });
       })

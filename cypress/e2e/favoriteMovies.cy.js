@@ -24,7 +24,7 @@ describe("Favorite movie on The Movie Database", () => {
     });
   });
 
-  beforeEach(() => {
+  beforeEach(function () {
       // Set cookie for each test using custom command
       cy.setLoginSession();
 
@@ -146,8 +146,7 @@ describe("Favorite movie on The Movie Database", () => {
         const orderByReleaseDesc = ["Spider-Man: Across the Spider-VerseFast XThe Super Mario Bros. Movie"];
         expect(movieTitles).to.deep.equal(orderByReleaseDesc);
       });
-
-    })
+    });
 
     it("should be able remove movies from favorite", () => {
       cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie);
@@ -162,5 +161,5 @@ describe("Favorite movie on The Movie Database", () => {
       });
     });
   });
-  
+
 });
