@@ -133,18 +133,37 @@ describe("Favorite movie on The Movie Database", () => {
     it("should display movies order by release date in descending order (most recent to oldest", () => {
       cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie + Cypress.urlsFixture.orderByParam + Cypress.urlsFixture.orderTypeParam);
 
-      // Retrieve list of favorite movie
-      cy.get(".results_page").then(($movies) => {
-       
-        // Extract movie title for comparison
-        const movieTitles = $movies.toArray().map((movie) => 
-          Cypress.$(movie).find(".title a ").text()
-        );
+      const movieData = [];
+      const sortedMovieData = [];
 
-        // Verify if the movies are displayed in expected order
-        const orderByReleaseDesc = ["Spider-Man: Across the Spider-VerseFast XThe Super Mario Bros. Movie"];
-        expect(movieTitles).to.deep.equal(orderByReleaseDesc);
+      // Get title and release date text
+      cy.get(".card.v4").each(($card) => {
+        const title = $card.find(".title h2").text();
+        const releaseDate = $card.find('.release_date').text();
+
+        // Add title and release date to the movieData array
+        movieData.push({ title, releaseDate });
+      })
+
+      // Sort movie by release date in descending order
+      // Get movie titles and release dates
+      cy.get('.card.v4').each(($card) => {
+        const title = $card.find('.title h2').text();
+        const releaseDate = $card.find('.release_date').text();
+
+        // Add title and release date to the movieData array
+        sortedMovieData.push({ title, releaseDate });
+      }).then(() => {
+        // Sort the movieData array by release date
+        sortedMovieData.sort((a, b) => {
+          const dateA = new Date(a.releaseDate);
+          const dateB = new Date(b.releaseDate);
+          return dateB - dateA; // Sort in descending order
+        });
       });
+
+      // Compare movie data and sorted movie data
+      expect(movieData).to.deep.equal(sortedMovieData);
     });
 
     it("should be able remove movies from favorite", () => {

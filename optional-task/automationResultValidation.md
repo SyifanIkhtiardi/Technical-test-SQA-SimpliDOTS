@@ -26,24 +26,52 @@
      cy.get("[data-media-type='movie']").should("contain", "0")
      ```
 3. Marks multiple movies as favorite
-   - Melakukan validasi jumlah movie yang ada di list sesuai dengan jumlah movie yang ditambahkan menggunakan script: ```cy.get(".results_page").children().should("have.length", 3);```
-   - Melakukan validasi bahwa judul movie ada di favorite list dengan membandingkan array yang berisi judul movie menggunakan script: 
-
-     ```  movies.forEach((movie) => {
-        cy.contains(movie).should("exist");
-     ```
-4. Order favorite list
-   - Melakukan validasi apakah urutan movie sesuai dengan kriteria yang telah dipilih dengan mengambil judul movie dan merubahnya menjadi array menggunakan script:
+   - Melakukan validasi jumlah movie yang ada di list sesuai dengan jumlah movie yang ditambahkan menggunakan script: 
+      ```
+      cy.get(".results_page").children().should("have.length", 3);
 
       ```
-     const movieTitles = $movies.toArray().map((movie) => 
-        Cypress.$(movie).find(".title a ").text());
-     ``` 
-     Kemudian membuat array yang telah sesuai dengan urutan menggunakan script:
-     ```
-     const orderByReleaseDesc = ["Spider-Man: Across the Spider-VerseFast XThe Super Mario Bros. Movie"];
-        expect(movieTitles).to.deep.equal(orderByReleaseDesc);
-     ```
+   - Melakukan validasi bahwa judul movie ada di favorite list dengan membandingkan array yang berisi judul movie menggunakan script: 
+
+      ```
+      movies.forEach((movie) => {
+        cy.contains(movie).should("exist");
+      })
+
+      ```
+4. Order favorite list
+   - Melakukan validasi apakah urutan movie sesuai dengan kriteria yang telah dipilih dengan mengambil judul dan release date yang telah diurutkan kemudian memasukkan ke dalam array menggunakan script:
+
+      ```
+      cy.get(".card.v4").each(($card) => {
+         const title = $card.find(".title h2").text();
+         const releaseDate = $card.find('.release_date').text();
+
+         movieData.push({ title, releaseDate });
+      })
+     
+      ``` 
+   - Kemudian membuat membuat fungsi untuk mengurutkan array:
+      ```
+      cy.get('.card.v4').each(($card) => {
+         const title = $card.find('.title h2').text();
+         const releaseDate = $card.find('.release_date').text();
+
+         sortedMovieData.push({ title, releaseDate });
+         }).then(() => {
+         sortedMovieData.sort((a, b) => {
+            const dateA = new Date(a.releaseDate);
+            const dateB = new Date(b.releaseDate);
+            return dateB - dateA; // Sort in descending order
+          });
+         });
+
+      ```
+   - Kemudian membandingkan movieData dengan sortedMovieData dengan script:
+      ```
+      expect(movieData).to.deep.equal(sortedMovieData);
+      
+      ```
 5. Import favorite list from CSV
    - Memverifikasi bahwa import berhasil dengan munculnya pesan sukses serta daftar movie muncul di user favorite list
 6. Export favorite list to CSV
