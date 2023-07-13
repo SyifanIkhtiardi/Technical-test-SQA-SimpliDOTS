@@ -46,7 +46,21 @@ Cypress.Commands.add("visitMovieDetail", (movieName) => {
   cy.contains(".card", `${movieName}`).click();
 });
 
-// Command to hover over the trigger element
-Cypress.Commands.add("hoverOverElement", { prevSubject: "element" }, (subject) => {
-  cy.wrap(subject).trigger("mouseover");
+// Command to sort movie by release date in descending order
+Cypress.Commands.add("sortByReleaseDateDesc", (sortedData) => {
+  // Get movie titles and release dates
+  cy.get('.card.v4').each(($card) => {
+    const title = $card.find('.title h2').text();
+    const releaseDate = $card.find('.release_date').text();
+
+    // Add title and release date to the movieData array
+    sortedData.push({ title, releaseDate });
+  }).then(() => {
+    // Sort the movieData array by release date
+    sortedData.sort((a, b) => {
+      const dateA = new Date(a.releaseDate);
+      const dateB = new Date(b.releaseDate);
+      return dateB - dateA; // Sort in descending order
+    });
+  });
 });

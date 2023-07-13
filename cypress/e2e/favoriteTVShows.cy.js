@@ -50,7 +50,6 @@ describe("Favorite TV shows on The Movie Database", () => {
         cy.get("#favourite").click();
   
         cy.get("#favourite > span").should("have.class", "true");
-        
       });
   
       it("should display TV show added in the user's favorite TV shows section on the profile page", () => {
@@ -77,9 +76,13 @@ describe("Favorite TV shows on The Movie Database", () => {
             cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesTV);
             cy.contains("Remove").click();
   
+            // Reload the page
+            cy.reload();
+
             // Verify if display correct counter
             cy.get("[data-media-type='tv']").should("contain", "0")
           });
+
         it("should be able to remove TV show from favorite list", () => {
             cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesTV);
             cy.contains("One Piece").should("not.exist");
@@ -147,21 +150,7 @@ describe("Favorite TV shows on The Movie Database", () => {
         });
 
         // Sort movie by release date in descending order
-        // Get movie titles and release dates
-        cy.get('.card.v4').each(($card) => {
-          const title = $card.find('.title h2').text();
-          const releaseDate = $card.find('.release_date').text();
-
-          // Add title and release date to the movieData array
-          sortedMovieData.push({ title, releaseDate });
-        }).then(() => {
-          // Sort the movieData array by release date
-          sortedMovieData.sort((a, b) => {
-            const dateA = new Date(a.releaseDate);
-            const dateB = new Date(b.releaseDate);
-            return dateB - dateA; // Sort in descending order
-          });
-        });
+        cy.sortByReleaseDateDesc(sortedMovieData);
 
         // Compare movie data and sorted movie data
         expect(movieData).to.deep.equal(sortedMovieData);
