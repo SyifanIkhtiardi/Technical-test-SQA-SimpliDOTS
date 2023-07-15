@@ -22,6 +22,11 @@ describe("Favorite movie on The Movie Database", () => {
     cy.fixture("urls").then((urlsFixture) => {
       Cypress.urlsFixture = urlsFixture;
     });
+
+    // Load tv shows name data
+    cy.fixture("movieData").then((movieNames) => {
+      Cypress.movieNames = movieNames;
+    });
   });
 
   beforeEach(function () {
@@ -78,6 +83,8 @@ describe("Favorite movie on The Movie Database", () => {
           // Reload the page
           cy.reload();
 
+          cy.wait(1000);
+          
           // Verify if display correct counter
           cy.get("[data-media-type='movie']").should("contain", "0")
         });
@@ -89,8 +96,6 @@ describe("Favorite movie on The Movie Database", () => {
   })
 
   context("When marks multiple movies as favorite", () => {
-    const movies = ["Fast X", "Spider-Man: Across the Spider-Verse", "The Super Mario Bros. Movie"];
-
     it("should add multiple to user's favorite movies list", () => {
       cy.visit(Cypress.urlsFixture.baseUrl);
 
@@ -102,7 +107,7 @@ describe("Favorite movie on The Movie Database", () => {
       // Verify url
       cy.url().should("eq", Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.movie);
 
-      movies.forEach((movie) => {
+      Cypress.movieNames.forEach((movie) => {
 
         // Visit movie detail page
         cy.visitMovieDetail(movie);
@@ -126,7 +131,7 @@ describe("Favorite movie on The Movie Database", () => {
         .should("have.length", 3);
       
       // Verify if movie name existed in the list
-      movies.forEach((movie) => {
+      Cypress.movieNames.forEach((movie) => {
         cy.contains(movie).should("exist");
       });
 
@@ -164,7 +169,7 @@ describe("Favorite movie on The Movie Database", () => {
           cy.wrap($el).click();
         });
 
-      movies.forEach((movie) => {
+      Cypress.movieNames.forEach((movie) => {
         cy.contains(movie).should("not.exist");
       });
     });

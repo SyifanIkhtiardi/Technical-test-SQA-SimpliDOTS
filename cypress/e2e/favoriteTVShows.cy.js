@@ -23,12 +23,16 @@ describe("Favorite TV shows on The Movie Database", () => {
       cy.fixture("urls").then((urlsFixture) => {
         Cypress.urlsFixture = urlsFixture;
       });
+
+      // Load tv shows name data
+      cy.fixture("tvShowData").then((tvShowNames) => {
+        Cypress.tvShowNames = tvShowNames;
+      });
     });
   
     beforeEach(() => {
         // Set cookie for each test using custom command
         cy.setLoginSession();
-  
       });
   
     context("When marks a tv show as favorite", () => {
@@ -79,6 +83,8 @@ describe("Favorite TV shows on The Movie Database", () => {
             // Reload the page
             cy.reload();
 
+            cy.wait(1000);
+
             // Verify if display correct counter
             cy.get("[data-media-type='tv']").should("contain", "0")
           });
@@ -90,7 +96,6 @@ describe("Favorite TV shows on The Movie Database", () => {
     })
   
     context("When marks multiple TV shows as favorite", () => {
-      const tvShows = ["One Piece", "Demon Slayer: Kimetsu no Yaiba", "Fullmetal Alchemist: Brotherhood"];
   
       it("should add multiple to user's favorite movies list", () => {
         cy.visit(Cypress.urlsFixture.baseUrl);
@@ -103,7 +108,7 @@ describe("Favorite TV shows on The Movie Database", () => {
         // Verify url
         cy.url().should("eq", Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.tv);
   
-        tvShows.forEach((show) => {
+        Cypress.tvShowNames.forEach((show) => {
   
           // Visit movie detail page
           cy.visitMovieDetail(show);
@@ -127,7 +132,7 @@ describe("Favorite TV shows on The Movie Database", () => {
           .should("have.length", 3);
         
         // Verify if movie name existed in the list
-        tvShows.forEach((show) => {
+        Cypress.tvShowNames.forEach((show) => {
           cy.contains(show).should("exist");
         });
   
@@ -164,7 +169,7 @@ describe("Favorite TV shows on The Movie Database", () => {
             cy.wrap($el).click();
           });
   
-        tvShows.forEach((show) => {
+          Cypress.tvShowNames.forEach((show) => {
           cy.contains(show).should("not.exist");
         });
       });

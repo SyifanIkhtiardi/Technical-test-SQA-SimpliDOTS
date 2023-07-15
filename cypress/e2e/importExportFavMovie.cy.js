@@ -114,9 +114,7 @@ describe("Import and export favorites movie or TV show csv", () => {
             cy.get("#export_csv_window").should("be.visible");
 
             // Click export
-            cy.get("input#created_export").click();
-
-            cy.wait(1000);
+            cy.get("input#created_export").click({timeout: 1000});
 
             // Verify if list successfully exported
             cy.contains("Success").should("be.visible");
