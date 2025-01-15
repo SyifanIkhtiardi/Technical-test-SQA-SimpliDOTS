@@ -10,7 +10,7 @@
   "author": "Syifan Ikhtiardi",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^12.16.0"
+    "cypress": "^13.17.0"
   },
   "dependencies": {
     "moment": "^2.29.4"

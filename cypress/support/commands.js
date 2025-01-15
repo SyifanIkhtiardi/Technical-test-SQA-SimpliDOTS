@@ -1,7 +1,7 @@
 // Login custom commands
 Cypress.Commands.add(("tmdbLogin"), (username, password) => {
     cy.visit("https://www.themoviedb.org");
-    cy.contains("Login").click();
+    cy.get("li a[href='/login']").click();
     cy.get("#username")
         .type(username)
         .should('have.value', username);

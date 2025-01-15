@@ -47,8 +47,8 @@ describe("Favorite movie on The Movie Database", () => {
       cy.url().should("eq", Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.movie);
 
       // Visit movie detail page
-      cy.visitMovieDetail("Fast X");
-      cy.url().should("contain", "fast-x");
+      cy.visitMovieDetail("Sonic the Hedgehog 3");
+      cy.url().should("contain", "sonic-the-hedgehog-3");
 
       // Marks movie as favorite
       cy.get("#favourite").click();
@@ -61,7 +61,7 @@ describe("Favorite movie on The Movie Database", () => {
       cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie)
 
       // Verify movie name existed
-      cy.contains("Fast X").should("exist");
+      cy.contains("Sonic the Hedgehog 3").should("exist");
 
       // Verify if movie contain image and movie detail
       cy.get(".card")
@@ -91,7 +91,7 @@ describe("Favorite movie on The Movie Database", () => {
 
       it("should be able to remove movie from favorite list", () => {
           cy.visit(Cypress.urlsFixture.baseUrl + Cypress.urlsFixture.favoritesMovie);
-          cy.contains("Fast X").should("not.exist");
+          cy.contains("Sonic the Hedgehog 3").should("not.exist");
         });
   })
 
